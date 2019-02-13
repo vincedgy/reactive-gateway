@@ -19,17 +19,17 @@ public class EdgeApplication {
     @Bean
     RouteLocator gateway (RouteLocatorBuilder rlb) {
         return rlb
-                .routes()
-                .route(rSpec ->
-                 rSpec
-                    .path("*.foo.fr")
-                    .and()
-                    .path("/proxy")
-                    .filters( fSpec -> fSpec.setPath("/reservations ")
-                    .addResponseHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*"))
-                       .uri("http://localhost:8080")
+            .routes()
+            .route(rSpec ->
+             rSpec
+                .host("*.foo.fr").and().path("/proxy")
+                .filters( fSpec ->
+                 fSpec.setPath("/reservations")
+                  .addResponseHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*")
                 )
-                .build();
+                .uri("http://localhost:8080")
+            )
+            .build();
 
     }
 
